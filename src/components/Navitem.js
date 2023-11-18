@@ -8,7 +8,7 @@ const Navitems = ({ selected, name, number, setClickedTab }) => {
       }}
       className={`flex items-center w-[100%] gap-2 ${
         selected ? "bg-[#7e22ce] text-white rounded-full" : "text-black"
-      }  mt-4 p-2`}
+      }  mt-4 p-3`}
     >
       <span
         className={`${
