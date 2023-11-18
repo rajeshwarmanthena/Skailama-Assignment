@@ -43,7 +43,12 @@ const [isClickedTab, setIsClickedTab] = useState(false);
         <QuickUpload img={spotify} />
         <QuickUpload img={rss} />
       </div>
-      <Modal isClickedTab={isClickedTab} img={youtube} absolute />
+      <Modal
+        isClickedTab={isClickedTab}
+        img={youtube}
+        absolute
+        setIsClickedTab={setIsClickedTab}
+      />
     </div>
   );
 };
