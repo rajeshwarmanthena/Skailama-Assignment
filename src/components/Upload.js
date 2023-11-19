@@ -10,7 +10,7 @@ import { Modal } from "./Modal";
 // import Sidenav from './Sidenav'
 
 const Upload = () => {
-const [isClickedTab, setIsClickedTab] = useState(false);
+const [isShowModal, setIsShowModal] = useState(false);
   return (
     <div className="flex flex-col mx-12 ">
       <div className="flex mt-5 justify-between">
@@ -32,7 +32,7 @@ const [isClickedTab, setIsClickedTab] = useState(false);
       <h1 className=" text-[#7e22ce] font-bold text-3xl ml-5 mt-5">Upload</h1>
       <div
         onClick={() => {
-          setIsClickedTab(true);
+          setIsShowModal(true);
         }}
         className="mt-10 grid grid-cols-3 gap-x-[90px] gap-y-4"
       >
@@ -44,10 +44,10 @@ const [isClickedTab, setIsClickedTab] = useState(false);
         <QuickUpload img={rss} />
       </div>
       <Modal
-        isClickedTab={isClickedTab}
+        isShowModal={isShowModal}
         img={youtube}
-        absolute
-        setIsClickedTab={setIsClickedTab}
+        pageName="upload"
+        setIsShowModal={setIsShowModal}
       />
     </div>
   );

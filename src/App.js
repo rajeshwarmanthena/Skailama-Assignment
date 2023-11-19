@@ -5,12 +5,15 @@ import Upload from "./components/Upload";
 import Project from "./components/Project";
 import EditTranscripit from "./components/EditTranscript";
 import Configuration from "./components/Configuration";
+import {Home} from "./components/Home"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
+
         <Route path="project" element={<Project />}>
           <Route path="Upload" element={<Upload />} />
           <Route path="EditTranscript" element={<EditTranscripit />} />
