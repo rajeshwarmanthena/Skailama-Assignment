@@ -5,5 +5,6 @@ const router = express.Router();
 const projectController = new ProjectController();
 
 router.post('/', projectController.createProject);
+router.get('/:userId', projectController.getAllProjects);
 
 module.exports = router;

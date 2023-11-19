@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { Input } from "./Input";
 import { API_URL } from "../config/config";
+
+import { UserContext } from "../App";
 
 export const Modal = ({
   isShowModal,
@@ -11,20 +13,24 @@ export const Modal = ({
 }) => {
   const [projectName, setProjectName] = useState("");
 
+  const { user, setUser } = useContext(UserContext);
   const [sampleName, setSampleName] = useState("");
   const [descriptionName, setDescriptionName] = useState("");
 
 
   const createProject = async () => {
     try {
-      const url = `${API_URL}/project`;
+      const url = `${API_URL}/projects`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           // Add any additional headers as needed
         },
-        body: JSON.stringify({ projectName }),
+        body: JSON.stringify({ 
+          userId: user._id,
+          projectName
+         }),
       });
 
       if (!response.ok) {

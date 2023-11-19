@@ -6,6 +6,7 @@ class ProjectService {
     await project.save();
     return project;
   }
+
   async createProjectForUser(userId, projectName) {
     const user = await User.findById(userId);
     if (!user) {
@@ -19,6 +20,20 @@ class ProjectService {
     await user.save();
 
     return project;
+  }
+
+  async getAllProjects(userId) {
+    try {
+      const user = await User.findById(userId).populate('projects');
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return user.projects;
+    } catch (error) {
+      console.error('Error fetching projects:', error.message);
+      throw new Error('Internal Server Error');
+    }
   }
 }
 

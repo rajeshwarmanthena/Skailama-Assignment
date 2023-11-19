@@ -13,6 +13,19 @@ class ProjectController {
         res.status(500).json({ error: 'Internal Server Error' });
       }
   }
+
+  async getAllProjects(req, res) {
+    try {
+     
+      const userId = req.params.userId; 
+
+      const projects = await projectService.getAllProjects(userId);
+      res.json( {data: projects} );
+    } catch (error) {
+      console.error('Error handling request:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 }
 
 module.exports = ProjectController;

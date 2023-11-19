@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/project', projectRoutes);
+app.use('/projects', projectRoutes);
 app.use('/user', userRoutes); 
 
 
