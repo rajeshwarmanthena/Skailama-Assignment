@@ -1,12 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from "./Navbar";
-
+import { Input } from "./Input";
 import { FiPlusCircle } from "react-icons/fi";
 import { LandingPageImage } from "./LandingPageImage";
 import { Modal } from "./Modal";
+import { RxCross2 } from "react-icons/rx";
+import { API_URL } from "../config/config";
+import { UserContext } from "../App";
+
 
 const LandingPage = () => {
-   const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const { user, setUser } = useContext(UserContext);
+
+  const createUser = async () => {
+   
+    try {
+      const url = `${API_URL}/user`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers as needed
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+     let res = await response.json()
+      console.log(res.user)
+
+      setShowUserModal(false)
+      localStorage.setItem('user', JSON.stringify(res.user))
+      setUser(res.user)
+
+      // Handle the successful response here
+      console.log('User created successfully!');
+
+    } catch (error) {
+      console.error('Error creating user:', error.message);
+      // Handle error scenarios here
+    }
+
+  };
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (user) {
+      // setShowUserModal(false)
+    } else {
+      setShowUserModal(true);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col gap-6">
@@ -34,15 +85,43 @@ const LandingPage = () => {
         <p>Create New Project</p>
       </button>
 
-      <Modal setIsShowModal={setIsShowModal} isShowModal={isShowModal} pageName="landing" />
+      <Modal
+        setIsShowModal={setIsShowModal}
+        isShowModal={isShowModal}
+        pageName="landing"
+      />
+      {/* user modal */}
+
+      {showUserModal && (
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+      )}
+
+      {showUserModal && (
+        <div className="flex flex-col w-[400px] gap-4 items-start border border-2 shadow-lg border-gray-200 bg-white rounded rounded-r-lg rounded-l-lg absolute top-[25%] left-[36%] p-4">
+          <div className="flex items-center w-full justify-between">
+            <h1 className="text-3xl font-bold">New User Registeration</h1>
+            {/* <RxCross2
+            onClick={() => {setShowUserModal(false)}}
+            className="text-xl font-bold"/> */}
+          </div>
+
+          <Input
+            className="w-full"
+            label="Please enter your Email"
+            placeholder="Type here ..."
+            type="email"
+            onChange={setEmail}
+          />
+          <button
+            onClick={createUser}
+            className="p-2 px-3 rounded-[10px] text-white bg-[#7e22ce]"
+          >
+            Submit
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
 export default LandingPage;
-
-
-
-
-
-

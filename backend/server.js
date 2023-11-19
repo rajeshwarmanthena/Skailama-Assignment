@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const bodyParser = require('body-parser');
+const projectRoutes = require('./routes/projectRoutes');
+const userRoutes = require('./routes/userRoutes.js');
+const cors = require("cors");
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/project', projectRoutes);
+app.use('/user', userRoutes); 
+
+
 
 let mongoURI;
 if (process.env.NODE_ENV === "production") {
@@ -9,6 +20,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   mongoURI = "mongodb://localhost:27017/skailama";
 }
+
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -28,7 +40,7 @@ app.get("/", (req, res) => {
 
 
 // node / express server
-const server = app.listen(8080, () => {
+app.listen(8080, () => {
   console.log(`server started on 8080`);
 });
 
