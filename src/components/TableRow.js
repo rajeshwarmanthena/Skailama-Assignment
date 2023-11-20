@@ -1,14 +1,23 @@
 import React from 'react';
 
-const TableRow = ({ name, uploadDateTime, status, handleEdit, handleDelete }) => {
+const TableRow = ({ projectId, epidodeIndex, name, uploadDateTime, status, handleDelete }) => {
   return (
-    <tr className='border-b-2'>
+    <tr className="border-b-2">
       <td>{name}</td>
       <td>{uploadDateTime}</td>
       <td>{status}</td>
-      <td className='flex items-center text-center justify-around'>
-        <button onClick={handleEdit} className='p-2 border border-1 border-[#b3b3b3] rounded hover:bg-gray-100'>Edit</button>
-        <button onClick={handleDelete} className='text-red-500 p-2 border border-1 rounded border-[#b3b3b3] hover:bg-gray-100'>Delete</button>
+      <td className="flex items-center text-center justify-around">
+        <a href={`/project/transcript`}>
+          <button className="p-2 border border-1 border-[#b3b3b3] rounded hover:bg-gray-100">
+            Edit
+          </button>
+        </a>
+        <button
+          onClick={handleDelete}
+          className="text-red-500 p-2 border border-1 rounded border-[#b3b3b3] hover:bg-gray-100"
+        >
+          Delete
+        </button>
       </td>
     </tr>
   );

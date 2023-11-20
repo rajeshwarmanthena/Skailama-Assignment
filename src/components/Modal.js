@@ -50,10 +50,9 @@ const { index } = useParams();
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // Handle the successful response here
       console.log('Project created successfully!');
+      window.location.reload();
 
-      // Close the modal
       setIsShowModal(false);
     } catch (error) {
       console.error('Error creating project:', error.message);
@@ -79,14 +78,13 @@ const { index } = useParams();
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // Handle the successful response here
+        window.location.reload();
+
       console.log('Project created successfully!');
 
-      // Close the modal
       setIsShowModal(false);
     } catch (error) {
       console.error('Error creating project:', error.message);
-      // Handle error scenarios here
     }
   };
 

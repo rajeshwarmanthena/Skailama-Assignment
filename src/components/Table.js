@@ -2,6 +2,7 @@ import React from "react";
 import TableRow from "./TableRow.js";
 import { API_URL } from "../config/config.js";
 const Table = ({ data, project }) => {
+
   const handleDelete = async (episodeIndex) => {
     try {
       const url = `${API_URL}/projects/${project._id}/episodes/${episodeIndex}`;
@@ -15,6 +16,7 @@ const Table = ({ data, project }) => {
 
       if (response.ok) {
         alert("Episode deleted successfully");
+        window.location.reload();
       } else {
         alert("Failed to delete episode");
       }
@@ -24,7 +26,7 @@ const Table = ({ data, project }) => {
     }
   };
 
-  const handleEdit = () => {};
+ 
 
   const formattedDate = (date) => {
     return new Date(date).toLocaleString("en-US", {
@@ -54,10 +56,11 @@ const Table = ({ data, project }) => {
         {data.map((item, index) => (
           <TableRow
             key={index}
+            projectId={project._id}
+            episodeIndex={index}
             name={item.episodeName}
             uploadDateTime={formattedDate(item.createdAt)}
             status="Done"
-            handleEdit={() => handleEdit(index)}
             handleDelete={() => handleDelete(index)}
           />
         ))}
