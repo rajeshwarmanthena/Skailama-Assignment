@@ -4,3 +4,12 @@ body{
   font-family: 'Roboto', sans-serif;
 font-family: 'Roboto Condensed', sans-serif;
 } */
+
+
+tr{
+  @apply p-10;
+}
+
+td, th{
+  @apply text-center p-4;
+}

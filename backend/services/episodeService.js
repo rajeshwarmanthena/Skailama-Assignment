@@ -13,6 +13,17 @@ async function createEpisode(episodeData) {
   }
 }
 
+async function deleteEpisode(episodeId)  {
+  try {
+    
+    await Episode.findByIdAndDelete(episodeId);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error deleting episode');
+  }
+}
+
 module.exports = {
   createEpisode,
+  deleteEpisode
 };

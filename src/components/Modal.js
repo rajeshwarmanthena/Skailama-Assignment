@@ -4,6 +4,9 @@ import { Input } from "./Input";
 import { API_URL } from "../config/config";
 import { useLocation } from "react-router-dom";
 import { UserContext } from "../App";
+import { useParams } from "react-router-dom";
+
+import { ProjectsContext } from "../App";
 
 export const Modal = ({
   isShowModal,
@@ -13,6 +16,8 @@ export const Modal = ({
 }) => {
   const [projectName, setProjectName] = useState("");
 
+  const { projects, setProjects } = useContext(ProjectsContext);
+const { index } = useParams();
   const { user, setUser } = useContext(UserContext);
   const [sampleName, setSampleName] = useState("");
   const [descriptionName, setDescriptionName] = useState("");
@@ -28,7 +33,7 @@ export const Modal = ({
   const createEpisode = async () => {
     try {
       console.log(".." , location)
-      const url = `${API_URL}/projects/${pathArray[2]}/episodes`;
+      const url = `${API_URL}/projects/${projects[index]._id}/episodes`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
