@@ -23,7 +23,22 @@ async function deleteEpisode(episodeId)  {
   }
 }
 
+async function updateEpisodeDescription(episodeId, newDescription) {
+  try {
+    const updatedEpisode = await Episode.findByIdAndUpdate(
+      episodeId,
+      { description: newDescription },
+      { new: true } // Return the updated document
+    );
+
+    return updatedEpisode;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createEpisode,
-  deleteEpisode
+  deleteEpisode,
+  updateEpisodeDescription
 };

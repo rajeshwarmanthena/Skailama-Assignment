@@ -8,18 +8,22 @@ import { RxCross2 } from "react-icons/rx";
 import { API_URL } from "../config/config";
 import { UserContext } from "../App";
 
+import {TailSpin} from 'react-loading-icons'
 
 const LandingPage = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
   const [email, setEmail] = useState("");
 
+  const [dataLoading, setDataLoading] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
   const createUser = async () => {
    
     try {
+      setDataLoading(true)
       const url = `${API_URL}/user`;
+      setShowUserModal(false)
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -28,24 +32,23 @@ const LandingPage = () => {
         },
         body: JSON.stringify({ email }),
       });
+      
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
      let res = await response.json()
-      console.log(res.user)
-
-      setShowUserModal(false)
+      setDataLoading(false)
+     
       localStorage.setItem('user', JSON.stringify(res.user))
       setUser(res.user)
 
-      // Handle the successful response here
-      console.log('User created successfully!');
+      alert('User created successfully!');
 
     } catch (error) {
       console.error('Error creating user:', error.message);
-      // Handle error scenarios here
+     
     }
 
   };
@@ -89,6 +92,7 @@ const LandingPage = () => {
         setIsShowModal={setIsShowModal}
         isShowModal={isShowModal}
         pageName="landing"
+        setDataLoading={setDataLoading}
       />
       {isShowModal && <div className="absolute inset-0 bg-black bg-opacity-70 z-2"></div>}
       {/* user modal */}
@@ -121,6 +125,9 @@ const LandingPage = () => {
           </button>
         </div>
       )}
+
+{dataLoading && <div className="absolute inset-0 bg-black bg-opacity-70"><TailSpin strokeWidth={5} speed={.95} className="h-[80px] w-[80px] absolute top-[45%] left-[50%] rounded-full" stroke="#7e22ce"/></div>  }
+
     </div>
   );
 };

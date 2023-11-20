@@ -1,10 +1,14 @@
 import React from "react";
+
 import TableRow from "./TableRow.js";
 import { API_URL } from "../config/config.js";
-const Table = ({ data, project }) => {
+const Table = ({ data, project, projectIndex, setDataLoading }) => {
+
+    
 
   const handleDelete = async (episodeIndex) => {
     try {
+        setDataLoading(true)
       const url = `${API_URL}/projects/${project._id}/episodes/${episodeIndex}`;
 
       const response = await fetch(url, {
@@ -14,6 +18,7 @@ const Table = ({ data, project }) => {
         },
       });
 
+      setDataLoading(false)
       if (response.ok) {
         alert("Episode deleted successfully");
         window.location.reload();
@@ -26,7 +31,6 @@ const Table = ({ data, project }) => {
     }
   };
 
- 
 
   const formattedDate = (date) => {
     return new Date(date).toLocaleString("en-US", {
@@ -56,8 +60,9 @@ const Table = ({ data, project }) => {
         {data.map((item, index) => (
           <TableRow
             key={index}
+            projectIndex={projectIndex}
             projectId={project._id}
-            episodeIndex={index}
+            index={index}
             name={item.episodeName}
             uploadDateTime={formattedDate(item.createdAt)}
             status="Done"

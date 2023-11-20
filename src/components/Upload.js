@@ -5,6 +5,8 @@ import united from "../united-kingdom.png";
 import QuickUpload from "./QuickUpload";
 import rss from "../rss.png";
 import spotify from "../spotify.png";
+
+import {TailSpin} from 'react-loading-icons'
 import youtube from "../youtube.png";
 import { Modal } from "./Modal";
 import { useParams } from "react-router-dom";
@@ -15,6 +17,7 @@ const Upload = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const { projects, setProjects } = useContext(ProjectsContext);
 
+  const [dataLoading, setDataLoading] = useState(false);
   console.log("Upload - Projects:", projects);
 
   const { index } = useParams();
@@ -58,10 +61,11 @@ const Upload = () => {
         img={youtube}
         pageName="upload"
         setIsShowModal={setIsShowModal}
+        setDataLoading={setDataLoading}
       />
       <h1 className="text-2xl text-gray-300 m-auto mt-10">or</h1>
       {projects[index]?.episodes?.length ? (
-        <Table data={projects[index]?.episodes} project={projects[index]} />
+        <Table data={projects[index]?.episodes} project={projects[index]} projectIndex={index} setDataLoading={setDataLoading}/>
       ) : (
         <div className="flex flex-col gap-4 border outline-dashed  border-2 rounded-[10px] p-6 mt-10">
           <svg
@@ -98,6 +102,9 @@ const Upload = () => {
       {isShowModal && (
         <div className="absolute inset-0 bg-black bg-opacity-70 z-2"></div>
       )}
+
+{dataLoading && <div className="absolute z-20 inset-0 bg-black bg-opacity-70"><TailSpin strokeWidth={5} speed={.95} className="h-[80px] z-20 w-[80px] absolute top-[45%] left-[50%] rounded-full" stroke="#7e22ce"/></div>  }
+
     </div>
   );
 };
