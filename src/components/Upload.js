@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SlHome } from "react-icons/sl";
 import { FaSortDown, FaRegBell } from "react-icons/fa6";
 import united from "../united-kingdom.png";
@@ -7,12 +7,22 @@ import rss from "../rss.png";
 import spotify from "../spotify.png";
 import youtube from "../youtube.png";
 import { Modal } from "./Modal";
-// import Sidenav from './Sidenav'
+import { useParams } from 'react-router-dom';
+import { ProjectsContext } from "../App";
+import Table from "./Table";
+
 
 const Upload = () => {
   const [isShowModal, setIsShowModal] = useState(false);
+  const { projects, setProjects } = useContext(ProjectsContext);
+
+  console.log('Upload - Projects:', projects);
+
+  const { index } = useParams();
+
   return (
     <div className="flex flex-col mx-12 gap-10">
+      
       <div className="flex mt-5 justify-between">
         <div className="flex">
           <a href="/home">
@@ -20,7 +30,7 @@ const Upload = () => {
           </a>
 
           <span className="text-[#a7a7a7] font-semibold pl-2">
-            / Sample Project /
+            / {projects[index]?.projectName} /
           </span>
           <span className="text-[#7e22ce] pl-2"> Upload</span>
         </div>
@@ -52,7 +62,14 @@ const Upload = () => {
         setIsShowModal={setIsShowModal}
       />
       <h1 className="text-2xl text-gray-300 m-auto mt-10">or</h1>
-      <div className="flex flex-col gap-4 border outline-dashed  border-2 rounded-[10px] p-6 mt-10">
+{
+  1 && <Table
+  
+  data={projects[index]?.episodes}
+  />
+}
+
+      {0 && <div className="flex flex-col gap-4 border outline-dashed  border-2 rounded-[10px] p-6 mt-10">
         <svg
           className="m-auto"
           width="90"
@@ -81,7 +98,8 @@ const Upload = () => {
         >
           Select File
         </button>
-      </div>
+      </div>}
+
       {isShowModal && <div className="absolute inset-0 bg-black bg-opacity-70 z-2"></div>}
     </div>
   );

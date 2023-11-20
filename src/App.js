@@ -9,11 +9,28 @@ import {Home} from "./components/Home"
 import Profile from "./components/Profile"
 import React, { useState, useEffect, createContext } from "react";
 
+import { API_URL } from "./config/config";
+
 export const UserContext = createContext();
+export const ProjectsContext = createContext();
 
 
 function App() {
   const [user, setUser] = useState(null);
+  const [projects, setProjects] = useState([]);
+
+
+  const getProjects = async () => {
+    try {
+      let user = JSON.parse(localStorage.getItem("user"));
+      const url = `${API_URL}/projects/${user?._id}`;
+      let res = await fetch(url);
+      let resp = await res.json();
+      setProjects(resp.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     let user = localStorage.getItem("user");
@@ -21,25 +38,31 @@ function App() {
       let userObj = JSON.parse(user);
       setUser(userObj);
     }
+
+    // get all projects
+    getProjects()
   }, []);
 
   return (
     <BrowserRouter>
      <UserContext.Provider value={{ user, setUser }}>
+     <ProjectsContext.Provider value={{ projects, setProjects }}>
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/project" element={<Project />}>
-          <Route path=":id/Upload" element={<Upload />} />
+          <Route path=":index/Upload" element={<Upload />} />
           <Route path="EditTranscript" element={<EditTranscripit />} />
           <Route path="Configuration" element={<Configuration />} />
 
         </Route>
       </Routes>
+      </ProjectsContext.Provider>
       </UserContext.Provider>
-    </BrowserRouter>
+     </BrowserRouter>
   );
 }
 

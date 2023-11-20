@@ -28,7 +28,13 @@ class ProjectService {
 
   async getAllProjects(userId) {
     try {
-      const user = await User.findById(userId).populate('projects');
+      const user = await User.findById(userId).populate({
+        path: 'projects',
+        populate: {
+          path: 'episodes',
+          
+        },
+      });
       if (!user) {
         throw new Error('User not found');
       }

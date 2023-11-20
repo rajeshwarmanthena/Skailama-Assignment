@@ -47,8 +47,8 @@ export const Home = () => {
       </header>
 
       <div className="grid grid-cols-3 gap-x-48 gap-y-20 mx-40">
-        {projects?.map((item) => (
-          <ProjectInfoCard data={item} />
+        {projects?.map((item, index) => (
+          <ProjectInfoCard data={item} index={index} />
         ))}
       </div>
       <Modal
