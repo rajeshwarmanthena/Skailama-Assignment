@@ -39,7 +39,7 @@ const LandingPage = () => {
       }
 
      let res = await response.json()
-      setDataLoading(true)
+      setDataLoading(false)
      
       localStorage.setItem('user', JSON.stringify(res.user))
       setUser(res.user)
