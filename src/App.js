@@ -55,7 +55,7 @@ function App() {
 
             <Route path="/project" element={<Project />}>
               <Route path=":index/Upload" element={<Upload />} />
-              <Route path="Transcript" element={<Transcripit />} />
+              <Route path=":projectIndex/:episodeIndex/transcript" element={<Transcripit />} />
               <Route path="EditTranscript" element={<EditTranscripit />} />
               <Route path="Configuration" element={<Configuration />} />
             </Route>

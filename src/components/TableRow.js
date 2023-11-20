@@ -1,13 +1,14 @@
 import React from 'react';
 
-const TableRow = ({ projectId, epidodeIndex, name, uploadDateTime, status, handleDelete }) => {
+const TableRow = ({ projectId, index, name, uploadDateTime, status, handleDelete, projectIndex }) => {
   return (
+    
     <tr className="border-b-2">
       <td>{name}</td>
       <td>{uploadDateTime}</td>
       <td>{status}</td>
       <td className="flex items-center text-center justify-around">
-        <a href={`/project/transcript`}>
+        <a href={`/project/${projectIndex}/${index}/transcript`}>
           <button className="p-2 border border-1 border-[#b3b3b3] rounded hover:bg-gray-100">
             Edit
           </button>

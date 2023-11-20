@@ -61,7 +61,7 @@ const Upload = () => {
       />
       <h1 className="text-2xl text-gray-300 m-auto mt-10">or</h1>
       {projects[index]?.episodes?.length ? (
-        <Table data={projects[index]?.episodes} project={projects[index]} />
+        <Table data={projects[index]?.episodes} project={projects[index]} projectIndex={index}/>
       ) : (
         <div className="flex flex-col gap-4 border outline-dashed  border-2 rounded-[10px] p-6 mt-10">
           <svg
