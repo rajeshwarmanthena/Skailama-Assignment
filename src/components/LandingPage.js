@@ -21,7 +21,9 @@ const LandingPage = () => {
   const createUser = async () => {
    
     try {
+      setDataLoading(true)
       const url = `${API_URL}/user`;
+      setShowUserModal(false)
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -30,24 +32,23 @@ const LandingPage = () => {
         },
         body: JSON.stringify({ email }),
       });
+      
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
      let res = await response.json()
-      console.log(res.user)
-
-      setShowUserModal(false)
+      setDataLoading(true)
+     
       localStorage.setItem('user', JSON.stringify(res.user))
       setUser(res.user)
 
-      // Handle the successful response here
-      console.log('User created successfully!');
+      alert('User created successfully!');
 
     } catch (error) {
       console.error('Error creating user:', error.message);
-      // Handle error scenarios here
+     
     }
 
   };

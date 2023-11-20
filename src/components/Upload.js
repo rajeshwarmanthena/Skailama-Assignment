@@ -103,7 +103,7 @@ const Upload = () => {
         <div className="absolute inset-0 bg-black bg-opacity-70 z-2"></div>
       )}
 
-{dataLoading && <div className="absolute inset-0 bg-black bg-opacity-70"><TailSpin strokeWidth={5} speed={.95} className="h-[80px] w-[80px] absolute top-[45%] left-[50%] rounded-full" stroke="#7e22ce"/></div>  }
+{dataLoading && <div className="absolute z-20 inset-0 bg-black bg-opacity-70"><TailSpin strokeWidth={5} speed={.95} className="h-[80px] z-20 w-[80px] absolute top-[45%] left-[50%] rounded-full" stroke="#7e22ce"/></div>  }
 
     </div>
   );

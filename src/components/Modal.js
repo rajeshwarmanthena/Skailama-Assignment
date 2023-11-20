@@ -33,6 +33,7 @@ const { index } = useParams();
 
   const createEpisode = async () => {
     try {
+      setIsShowModal(false);
       setDataLoading(true)
       console.log(".." , location)
       const url = `${API_URL}/projects/${projects[index]._id}/episodes`;
@@ -55,7 +56,7 @@ const { index } = useParams();
       console.log('Project created successfully!');
       window.location.reload();
 
-      setIsShowModal(false);
+    
     } catch (error) {
       console.error('Error creating project:', error.message);
       // Handle error scenarios here
@@ -63,6 +64,7 @@ const { index } = useParams();
   }
   const createProject = async () => {
     try {
+      setIsShowModal(false);
       setDataLoading(true)
       const url = `${API_URL}/projects`;
       const response = await fetch(url, {
@@ -85,7 +87,7 @@ const { index } = useParams();
 
       console.log('Project created successfully!');
 
-      setIsShowModal(false);
+      
     } catch (error) {
       console.error('Error creating project:', error.message);
     }
