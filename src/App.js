@@ -5,6 +5,7 @@ import Upload from "./components/Upload";
 import Project from "./components/Project";
 import EditTranscripit from "./components/EditTranscript";
 import Configuration from "./components/Configuration";
+import Transcripit from "./components/Transcript";
 import {Home} from "./components/Home"
 import Profile from "./components/Profile"
 import React, { useState, useEffect, createContext } from "react";
@@ -45,24 +46,23 @@ function App() {
 
   return (
     <BrowserRouter>
-     <UserContext.Provider value={{ user, setUser }}>
-     <ProjectsContext.Provider value={{ projects, setProjects }}>
+      <UserContext.Provider value={{ user, setUser }}>
+        <ProjectsContext.Provider value={{ projects, setProjects }}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-
-        <Route path="/project" element={<Project />}>
-          <Route path=":index/Upload" element={<Upload />} />
-          <Route path="EditTranscript" element={<EditTranscripit />} />
-          <Route path="Configuration" element={<Configuration />} />
-
-        </Route>
-      </Routes>
-      </ProjectsContext.Provider>
+            <Route path="/project" element={<Project />}>
+              <Route path=":index/Upload" element={<Upload />} />
+              <Route path="Transcript" element={<Transcripit />} />
+              <Route path="EditTranscript" element={<EditTranscripit />} />
+              <Route path="Configuration" element={<Configuration />} />
+            </Route>
+          </Routes>
+        </ProjectsContext.Provider>
       </UserContext.Provider>
-     </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

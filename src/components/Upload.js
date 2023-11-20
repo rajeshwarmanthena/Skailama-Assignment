@@ -9,7 +9,7 @@ import youtube from "../youtube.png";
 import { Modal } from "./Modal";
 import { useParams } from 'react-router-dom';
 import { ProjectsContext } from "../App";
-import Table from "./Table";
+
 
 
 const Upload = () => {
@@ -62,12 +62,7 @@ const Upload = () => {
         setIsShowModal={setIsShowModal}
       />
       <h1 className="text-2xl text-gray-300 m-auto mt-10">or</h1>
-{
-  1 && <Table
-  
-  data={projects[index]?.episodes}
-  />
-}
+
 
       {0 && <div className="flex flex-col gap-4 border outline-dashed  border-2 rounded-[10px] p-6 mt-10">
         <svg
