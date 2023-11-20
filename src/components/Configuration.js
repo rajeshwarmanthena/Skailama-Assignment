@@ -44,7 +44,7 @@ const Configuration = () => {
             onClick={() => {
               setSelectedCategory("general");
             }}
-            class={`${
+            class={`cursor-pointer ${
               selectedCategory === "general"
                 ? "z-20 border-b-4 border-[#7e22ce] text-[#7e22ce]"
                 : ""
@@ -57,7 +57,7 @@ const Configuration = () => {
             onClick={() => {
               setSelectedCategory("display");
             }}
-            class={`${
+            class={`cursor-pointer ${
               selectedCategory === "display"
                 ? "z-20 border-b-4 border-[#7e22ce] text-[#7e22ce]"
                 : ""
@@ -69,7 +69,7 @@ const Configuration = () => {
             onClick={() => {
               setSelectedCategory("advance");
             }}
-            class={`${
+            class={`cursor-pointer ${
               selectedCategory === "advance"
                 ? "z-20 border-b-4 border-[#7e22ce] text-[#7e22ce]"
                 : ""
