@@ -7,11 +7,15 @@ import { ProjectsContext } from "../App";
 import { API_URL } from "../config/config";
 import { useParams } from "react-router-dom";
 
+import {TailSpin} from 'react-loading-icons'
+
 const Transcript = () => {
   const { projects, setProjects } = useContext(ProjectsContext);
   const { projectIndex, episodeIndex } = useParams();
   const [input, setInput] = useState();
   const [showEditElements, setShowEditElements] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false)
+  
   const showEditTranscript = () => {
     setInput(projects[projectIndex]?.episodes[episodeIndex]?.description);
     setShowEditElements(true);
@@ -27,6 +31,7 @@ const Transcript = () => {
 
   const updateEpisodeDescription = async () => {
     try {
+      setDataLoading(true)
       const response = await fetch(`${API_URL}/episodes/${projects[projectIndex]?.episodes[episodeIndex]._id}`, {
         method: 'PUT',
         headers: {
@@ -38,6 +43,7 @@ const Transcript = () => {
       if (!response.ok) {
         throw new Error(`Failed to update description: ${response.status}`);
       }
+      setDataLoading(false)
   
       const responseData = await response.json();
       console.log(responseData); 
@@ -123,6 +129,8 @@ const Transcript = () => {
           </p>
         )}
       </div>
+      {dataLoading && <div className="absolute inset-0 bg-black bg-opacity-70"><TailSpin strokeWidth={5} speed={.95} className="h-[80px] w-[80px] absolute top-[45%] left-[50%] rounded-full" stroke="#7e22ce"/></div>  }
+
     </div>
   );
 };

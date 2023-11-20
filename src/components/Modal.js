@@ -13,6 +13,7 @@ export const Modal = ({
   img = null,
   setIsShowModal,
   pageName,
+  setDataLoading
 }) => {
   const [projectName, setProjectName] = useState("");
 
@@ -32,6 +33,7 @@ const { index } = useParams();
 
   const createEpisode = async () => {
     try {
+      setDataLoading(true)
       console.log(".." , location)
       const url = `${API_URL}/projects/${projects[index]._id}/episodes`;
       const response = await fetch(url, {
@@ -49,7 +51,7 @@ const { index } = useParams();
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      setDataLoading(false)
       console.log('Project created successfully!');
       window.location.reload();
 
@@ -61,6 +63,7 @@ const { index } = useParams();
   }
   const createProject = async () => {
     try {
+      setDataLoading(true)
       const url = `${API_URL}/projects`;
       const response = await fetch(url, {
         method: 'POST',
@@ -77,7 +80,7 @@ const { index } = useParams();
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      setDataLoading(false)
         window.location.reload();
 
       console.log('Project created successfully!');
@@ -154,7 +157,7 @@ const { index } = useParams();
               </button>
             )}
           </div>
-        </div>
+</div>
       )}
     </>
   );

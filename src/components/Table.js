@@ -1,10 +1,14 @@
 import React from "react";
+
 import TableRow from "./TableRow.js";
 import { API_URL } from "../config/config.js";
-const Table = ({ data, project, projectIndex }) => {
+const Table = ({ data, project, projectIndex, setDataLoading }) => {
+
+    
 
   const handleDelete = async (episodeIndex) => {
     try {
+        setDataLoading(true)
       const url = `${API_URL}/projects/${project._id}/episodes/${episodeIndex}`;
 
       const response = await fetch(url, {
@@ -14,6 +18,7 @@ const Table = ({ data, project, projectIndex }) => {
         },
       });
 
+      setDataLoading(false)
       if (response.ok) {
         alert("Episode deleted successfully");
         window.location.reload();
