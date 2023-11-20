@@ -9,6 +9,8 @@ const episodeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+}, {
+  timestamps: true, 
 });
 
 const Episode = mongoose.model("Episode", episodeSchema);
