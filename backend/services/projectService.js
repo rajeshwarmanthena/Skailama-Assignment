@@ -1,5 +1,9 @@
 const Project = require('../models/Project');
 const User = require('../models/User');
+
+const episodeService = require('./episodeService.js');
+
+
 class ProjectService {
   async createProject(projectName) {
     const project = new Project({ projectName });
@@ -33,6 +37,20 @@ class ProjectService {
     } catch (error) {
       console.error('Error fetching projects:', error.message);
       throw new Error('Internal Server Error');
+    }
+  }
+
+  async createEpisodeAndLinkToProject(projectId, episodeData) {
+    try {
+      const newEpisode = await episodeService.createEpisode(episodeData);
+  
+      const project = await Project.findById(projectId);
+      project.episodes.push(newEpisode._id);
+      await project.save();
+  
+      return project;
+    } catch (error) {
+      throw error;
     }
   }
 }

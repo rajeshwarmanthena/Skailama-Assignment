@@ -90,6 +90,7 @@ const LandingPage = () => {
         isShowModal={isShowModal}
         pageName="landing"
       />
+      {isShowModal && <div className="absolute inset-0 bg-black bg-opacity-70 z-2"></div>}
       {/* user modal */}
 
       {showUserModal && (

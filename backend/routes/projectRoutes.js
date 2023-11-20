@@ -7,4 +7,7 @@ const projectController = new ProjectController();
 router.post('/', projectController.createProject);
 router.get('/:userId', projectController.getAllProjects);
 
+router.post('/:projectId/episodes', projectController.createEpisode);
+
+
 module.exports = router;

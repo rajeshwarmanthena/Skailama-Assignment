@@ -5,6 +5,10 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  episodes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Episode',
+  }],
 });
 
 const Project = mongoose.model('Project', projectSchema);

@@ -7,6 +7,7 @@ function getRandomColor(){
     return colors[randomIndex]
 }
   return (
+    <a href={`/project/${data._id}/upload`}>
     <div className="p-2  items-center flex gap-5 border border-1 border-[#999999] shadow-lg rounded-xl">
       <div className="text-white text-5xl py-6 px-10 rounded-[20px]"
        style={{ backgroundColor: getRandomColor() }}
@@ -22,5 +23,6 @@ function getRandomColor(){
         <p className="text-sm text-[#969696]">Last edited a week ago</p>
       </div>
     </div>
+    </a>
   );
 };

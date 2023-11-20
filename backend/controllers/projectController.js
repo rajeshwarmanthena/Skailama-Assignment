@@ -26,6 +26,19 @@ class ProjectController {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+  async createEpisode(req, res) {
+    const { projectId } = req.params;
+    const { episodeName, description } = req.body;
+
+    try {
+      const project = await projectService.createEpisodeAndLinkToProject(projectId, { episodeName, description });
+      res.json(project);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
 }
 
 module.exports = ProjectController;

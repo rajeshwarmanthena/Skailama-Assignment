@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { Input } from "./Input";
 import { API_URL } from "../config/config";
-
+import { useLocation } from "react-router-dom";
 import { UserContext } from "../App";
 
 export const Modal = ({
@@ -16,8 +16,45 @@ export const Modal = ({
   const { user, setUser } = useContext(UserContext);
   const [sampleName, setSampleName] = useState("");
   const [descriptionName, setDescriptionName] = useState("");
+  const location = useLocation()
+  const [pathArray, setPathArray] = useState("")
 
+  useEffect(() => {
+    let pathArray = location?.pathname?.split("/")
+    setPathArray(pathArray)
+    console.log(pathArray)
+  }, [])
 
+  const createEpisode = async () => {
+    try {
+      console.log(".." , location)
+      const url = `${API_URL}/projects/${pathArray[2]}/episodes`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers as needed
+        },
+        body: JSON.stringify({ 
+          episodeName: sampleName,
+          description: descriptionName
+         }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Handle the successful response here
+      console.log('Project created successfully!');
+
+      // Close the modal
+      setIsShowModal(false);
+    } catch (error) {
+      console.error('Error creating project:', error.message);
+      // Handle error scenarios here
+    }
+  }
   const createProject = async () => {
     try {
       const url = `${API_URL}/projects`;
@@ -52,9 +89,10 @@ export const Modal = ({
   return (
     <>
       {isShowModal && (
-        <div className="flex flex-col w-[600px] border border-2 shadow-lg border-gray-200 bg-white rounded rounded-r-lg rounded-l-lg absolute top-[20%] left-[34%] p-4">
+        <div className="flex z-10 flex-col w-[600px] border border-2 shadow-lg border-gray-200 bg-white rounded rounded-r-lg rounded-l-lg absolute top-[20%] left-[34%] p-4">
           <div className="flex mt-4 ml-5 justify-between">
             <div className="flex items-center gap-4">
+             
               {img && <img src={img} className="h-[40px] " />}
 
               <h1 className="text-black text-xl font-bold">
@@ -106,7 +144,9 @@ export const Modal = ({
               className="p-2 px-3 rounded-[10px] text-white bg-[#7e22ce]">Create</button>
               </div>
             ) : (
-              <button className="bg-black text-white rounded-md px-4 py-2 ">
+              <button
+              onClick={createEpisode}
+              className="bg-black text-white rounded-md px-4 py-2 ">
                 Submit
               </button>
             )}
